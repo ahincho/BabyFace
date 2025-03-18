@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -49,6 +50,13 @@ public class GlobalRestControllerAdvice {
         HttpServletRequest httpServletRequest
     ) {
         return this.exceptionResponseFactory.createErrorResponse(HttpStatus.BAD_REQUEST, httpServletRequest, missingServletRequestPartException.getMessage());
+    }
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ExceptionResponse> handleHttpMessageNotReadable(
+        HttpMessageNotReadableException httpMessageNotReadableException,
+        HttpServletRequest httpServletRequest
+    ) {
+        return this.exceptionResponseFactory.createErrorResponse(HttpStatus.BAD_REQUEST, httpServletRequest, "Required request body is missing");
     }
     protected String getExpectedTypeMessage(Class<?> requiredType) {
         return switch (requiredType != null ? requiredType.getSimpleName() : "Unknown") {

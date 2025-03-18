@@ -8,6 +8,7 @@ import com.nxtep.persistence.jpa.mappers.UserJpaMapper;
 import com.nxtep.persistence.jpa.repositories.UserJpaRepository;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -18,6 +19,7 @@ public class UserJpaPersistenceAdapter implements UserPersistencePort {
         this.userJpaRepository = userJpaRepository;
     }
     @Override
+    @Transactional
     public User createOneUser(User user) {
         UserEntity userEntity = UserJpaMapper.domainToEntity(user);
         UserEntity savedUserEntity = this.userJpaRepository.save(userEntity);
@@ -27,9 +29,14 @@ public class UserJpaPersistenceAdapter implements UserPersistencePort {
     public PaginationResult<User> findUsers(Integer page, Integer size) {
         return null;
     }
+
     @Override
     public Optional<User> findOneUser(Integer userId) {
         return this.userJpaRepository.findById(userId).map(UserJpaMapper::entityToDomain);
+    }
+    @Override
+    public boolean existsOneUser(Integer userId) {
+        return this.userJpaRepository.existsById(userId);
     }
     @Override
     public boolean existsOneUserByUsername(String username) {

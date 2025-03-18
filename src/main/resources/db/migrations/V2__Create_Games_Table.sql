@@ -1,0 +1,9 @@
+-- V2 - Create Games Table
+CREATE TABLE games (
+    id BIGSERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    hints INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_games_users FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
