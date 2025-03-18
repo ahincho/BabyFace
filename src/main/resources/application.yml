@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: baby-face
+  profiles:
+    active: ${SPRING_PROFILE:dev}
