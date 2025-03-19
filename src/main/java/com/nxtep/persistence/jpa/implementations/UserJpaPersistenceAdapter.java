@@ -1,6 +1,6 @@
 package com.nxtep.persistence.jpa.implementations;
 
-import com.nxtep.domain.commons.PaginationResult;
+import com.nxtep.domain.models.PageResult;
 import com.nxtep.domain.models.User;
 import com.nxtep.domain.repositories.UserPersistencePort;
 import com.nxtep.persistence.jpa.entities.UserEntity;
@@ -26,7 +26,7 @@ public class UserJpaPersistenceAdapter implements UserPersistencePort {
         return UserJpaMapper.entityToDomain(savedUserEntity);
     }
     @Override
-    public PaginationResult<User> findUsers(Integer page, Integer size) {
+    public PageResult<User> findUsers(Integer page, Integer size) {
         return null;
     }
 

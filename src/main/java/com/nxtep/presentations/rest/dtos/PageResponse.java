@@ -1,4 +1,4 @@
-package com.nxtep.domain.commons;
+package com.nxtep.presentations.rest.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaginationResult<T> {
+public class PageResponse<T> {
     private Long totalItems;
     private Integer totalPages;
     private Integer currentPage;

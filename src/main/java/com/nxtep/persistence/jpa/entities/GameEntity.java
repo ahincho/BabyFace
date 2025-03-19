@@ -34,7 +34,7 @@ public class GameEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
-    private Integer hints;
+    private Integer hits;
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp

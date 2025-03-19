@@ -6,7 +6,7 @@ import com.nxtep.presentations.rest.dtos.GameCreateRequest;
 import com.nxtep.presentations.rest.dtos.GameResponse;
 
 public class GameRestMapper {
-    private static final Integer POINTS_PER_HIT = 50;
+    public static final Integer POINTS_PER_HIT = 50;
     private GameRestMapper() {}
     public static Game createRequestToDomain(GameCreateRequest gameCreateRequest) {
         return Game.builder()

@@ -1,4 +1,4 @@
-package com.nxtep.domain.models;
+package com.nxtep.presentations.rest.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Leader {
+public class LeaderResponse {
     private String name;
-    private Integer hits;
+    private Integer points;
 }
