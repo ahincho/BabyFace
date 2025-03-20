@@ -1,14 +1,12 @@
 package com.nxtep.presentations.rest.dtos;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
@@ -16,9 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 public class UserCreateRequest {
     @NotBlank
+    @Size(min = 2, max = 64)
     private String username;
     @NotBlank
+    @Size(min = 9, max = 15)
     private String phone;
-    @NotNull
-    private MultipartFile photo;
 }

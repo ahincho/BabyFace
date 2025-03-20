@@ -6,6 +6,7 @@ import com.nxtep.presentations.rest.dtos.UserResponse;
 import com.nxtep.presentations.rest.mappers.UserRestMapper;
 import com.nxtep.application.specifications.FindOneUserUseCase;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,7 @@ public class FindOneUserRestController {
     public FindOneUserRestController(FindOneUserUseCase findOneUserUseCase) {
         this.findOneUserUseCase = findOneUserUseCase;
     }
-    @GetMapping("/{userId}")
+    @GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserResponse> findOneUser(
         @PathVariable Integer userId
     ) throws UserNotFoundException {

@@ -13,6 +13,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 @RestControllerAdvice
@@ -53,10 +54,16 @@ public class GlobalRestControllerAdvice {
     }
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ExceptionResponse> handleHttpMessageNotReadable(
-        HttpMessageNotReadableException httpMessageNotReadableException,
         HttpServletRequest httpServletRequest
     ) {
         return this.exceptionResponseFactory.createErrorResponse(HttpStatus.BAD_REQUEST, httpServletRequest, "Required request body is missing");
+    }
+    @ExceptionHandler(MultipartException.class)
+    public ResponseEntity<ExceptionResponse> handleMultipartException(
+        MultipartException multipartException,
+        HttpServletRequest httpServletRequest
+    ) {
+        return this.exceptionResponseFactory.createErrorResponse(HttpStatus.NOT_ACCEPTABLE, httpServletRequest, multipartException.getMessage());
     }
     protected String getExpectedTypeMessage(Class<?> requiredType) {
         return switch (requiredType != null ? requiredType.getSimpleName() : "Unknown") {

@@ -13,7 +13,7 @@ public class LeaderJpaMapper {
             .id(leaderEntity.getId())
             .rank(leaderEntity.getRank())
             .name(leaderEntity.getName())
-            .hits(leaderEntity.getHits())
+            .points(leaderEntity.getPoints())
             .build();
     }
     public static PageResult<Leader> entityPageToDomainPage(Page<LeaderEntity> leaderEntityPage) {

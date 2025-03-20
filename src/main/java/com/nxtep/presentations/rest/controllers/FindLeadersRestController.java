@@ -10,6 +10,7 @@ import com.nxtep.application.specifications.FindLeadersUseCase;
 
 import jakarta.validation.Valid;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,7 +24,7 @@ public class FindLeadersRestController {
     public FindLeadersRestController(FindLeadersUseCase findLeadersUseCase) {
         this.findLeadersUseCase = findLeadersUseCase;
     }
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResponse<LeaderResponse>> findLeaders(
         @ModelAttribute @Valid PageRequest pageRequest
     ) {

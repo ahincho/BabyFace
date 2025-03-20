@@ -17,6 +17,7 @@ public class User {
     private String phone;
     private String photo;
     private String avatar;
+    private Game game;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

@@ -7,6 +7,7 @@ import com.nxtep.presentations.rest.dtos.UserResponse;
 import com.nxtep.presentations.rest.mappers.UserRestMapper;
 import com.nxtep.application.specifications.CreateOneUserAvatarUseCase;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ public class CreateUserAvatarRestController {
     public CreateUserAvatarRestController(CreateOneUserAvatarUseCase createOneUserAvatarUseCase) {
         this.createOneUserAvatarUseCase = createOneUserAvatarUseCase;
     }
-    @PostMapping("/{userId}/avatars")
+    @PostMapping(value = "/{userId}/avatars", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserResponse> createUserAvatar(
         @PathVariable Integer userId
     ) throws UserNotFoundException, UserValidationException {

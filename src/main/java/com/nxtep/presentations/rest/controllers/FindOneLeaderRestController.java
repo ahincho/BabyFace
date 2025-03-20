@@ -6,6 +6,7 @@ import com.nxtep.presentations.rest.dtos.LeaderResponse;
 import com.nxtep.presentations.rest.mappers.LeaderRestMapper;
 import com.nxtep.application.specifications.FindOneLeaderUseCase;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,7 @@ public class FindOneLeaderRestController {
     public FindOneLeaderRestController(FindOneLeaderUseCase findOneLeaderUseCase) {
         this.findOneLeaderUseCase = findOneLeaderUseCase;
     }
-    @GetMapping("/{leaderId}")
+    @GetMapping(value = "/{leaderId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LeaderResponse> findOneLeader(
         @PathVariable Integer leaderId
     ) throws LeaderNotFoundException {

@@ -15,14 +15,14 @@ public class GameRestMapper {
                     .id(gameCreateRequest.getUserId())
                     .build()
             )
-            .hits(gameCreateRequest.getHits())
+            .points(gameCreateRequest.getHits())
             .build();
     }
     public static GameResponse domainToResponse(Game game) {
         return GameResponse.builder()
             .id(game.getId())
             .userId(game.getUser().getId())
-            .points(game.getHits() * POINTS_PER_HIT)
+            .points(game.getPoints() * POINTS_PER_HIT)
             .build();
     }
 }

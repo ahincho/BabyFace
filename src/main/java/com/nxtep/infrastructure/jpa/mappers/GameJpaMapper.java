@@ -17,7 +17,7 @@ public class GameJpaMapper {
                     .id(game.getUser().getId())
                     .build()
             )
-            .hits(game.getHits())
+            .points(game.getPoints())
             .createdAt(game.getCreatedAt() == null ? LocalDateTime.now() : game.getCreatedAt())
             .updatedAt(game.getUpdatedAt() == null ? LocalDateTime.now() : game.getUpdatedAt())
             .build();
@@ -30,7 +30,7 @@ public class GameJpaMapper {
                     .id(gameEntity.getUser().getId())
                     .build()
             )
-            .hits(gameEntity.getHits())
+            .points(gameEntity.getPoints())
             .createdAt(gameEntity.getCreatedAt())
             .updatedAt(gameEntity.getUpdatedAt())
             .build();

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Game {
     private Long id;
     private User user;
-    private Integer hits;
+    private Integer points;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

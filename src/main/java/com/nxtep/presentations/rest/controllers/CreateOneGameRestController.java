@@ -9,6 +9,7 @@ import com.nxtep.application.specifications.CreateOneGameUseCase;
 
 import jakarta.validation.Valid;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +26,7 @@ public class CreateOneGameRestController {
     public CreateOneGameRestController(CreateOneGameUseCase createOneGameUseCase) {
         this.createOneGameUseCase = createOneGameUseCase;
     }
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GameResponse> createOneGame(@RequestBody @Valid GameCreateRequest gameCreateRequest) throws UserNotFoundException {
         Game game = GameRestMapper.createRequestToDomain(gameCreateRequest);
         Game savedGame = this.createOneGameUseCase.execute(game);
