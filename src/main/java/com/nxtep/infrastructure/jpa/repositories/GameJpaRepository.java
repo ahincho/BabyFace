@@ -1,6 +1,6 @@
-package com.nxtep.persistence.jpa.repositories;
+package com.nxtep.infrastructure.jpa.repositories;
 
-import com.nxtep.persistence.jpa.entities.GameEntity;
+import com.nxtep.infrastructure.jpa.entities.GameEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GameJpaRepository extends JpaRepository<GameEntity, Long> {

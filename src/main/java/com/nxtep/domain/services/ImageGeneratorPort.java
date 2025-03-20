@@ -1,8 +1,7 @@
-package com.nxtep.domain.repositories;
+package com.nxtep.domain.services;
 
 import java.io.File;
-import java.io.IOException;
 
 public interface ImageGeneratorPort {
-    File createImageFromAnotherImage(File imageFile) throws IOException;
+    File createImageFromAnotherImage(String imageUrl);
 }

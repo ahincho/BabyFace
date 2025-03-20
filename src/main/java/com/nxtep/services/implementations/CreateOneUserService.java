@@ -22,7 +22,7 @@ public class CreateOneUserService implements CreateOneUserUseCase {
     public User execute(User user, File photo) throws UserDuplicateException {
         boolean existsByUsername = this.userPersistencePort.existsOneUserByUsername(user.getUsername());
         if (existsByUsername) {
-            throw new UserDuplicateException(String.format("User with name '%s' already exists", user.getUsername()));
+            throw new UserDuplicateException(String.format("Usuario con nombre '%s' registrado anteriormente", user.getUsername()));
         }
         String photoUrl = this.imagePersistencePort.createOneImage("photos", photo);
         user.setPhoto(photoUrl);

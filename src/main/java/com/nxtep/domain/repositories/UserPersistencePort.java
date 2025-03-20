@@ -11,4 +11,5 @@ public interface UserPersistencePort {
     Optional<User> findOneUser(Integer userId);
     boolean existsOneUser(Integer userId);
     boolean existsOneUserByUsername(String username);
+    User updateOneUser(User user);
 }

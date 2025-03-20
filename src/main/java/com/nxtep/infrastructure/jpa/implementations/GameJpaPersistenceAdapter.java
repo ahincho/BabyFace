@@ -1,10 +1,10 @@
-package com.nxtep.persistence.jpa.implementations;
+package com.nxtep.infrastructure.jpa.implementations;
 
 import com.nxtep.domain.models.Game;
 import com.nxtep.domain.repositories.GamePersistencePort;
-import com.nxtep.persistence.jpa.entities.GameEntity;
-import com.nxtep.persistence.jpa.mappers.GameJpaMapper;
-import com.nxtep.persistence.jpa.repositories.GameJpaRepository;
+import com.nxtep.infrastructure.jpa.entities.GameEntity;
+import com.nxtep.infrastructure.jpa.mappers.GameJpaMapper;
+import com.nxtep.infrastructure.jpa.repositories.GameJpaRepository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

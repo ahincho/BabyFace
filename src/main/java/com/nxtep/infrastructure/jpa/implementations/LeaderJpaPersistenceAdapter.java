@@ -1,12 +1,12 @@
-package com.nxtep.persistence.jpa.implementations;
+package com.nxtep.infrastructure.jpa.implementations;
 
 import com.nxtep.domain.models.PageResult;
 import com.nxtep.domain.models.Leader;
 import com.nxtep.domain.repositories.LeaderPersistencePort;
-import com.nxtep.persistence.jpa.entities.LeaderEntity;
-import com.nxtep.persistence.jpa.mappers.CommonJpaMapper;
-import com.nxtep.persistence.jpa.mappers.LeaderJpaMapper;
-import com.nxtep.persistence.jpa.repositories.LeaderJpaRepository;
+import com.nxtep.infrastructure.jpa.entities.LeaderEntity;
+import com.nxtep.infrastructure.jpa.mappers.CommonJpaMapper;
+import com.nxtep.infrastructure.jpa.mappers.LeaderJpaMapper;
+import com.nxtep.infrastructure.jpa.repositories.LeaderJpaRepository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

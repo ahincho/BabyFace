@@ -1,8 +1,8 @@
-package com.nxtep.persistence.jpa.mappers;
+package com.nxtep.infrastructure.jpa.mappers;
 
 import com.nxtep.domain.models.PageResult;
 import com.nxtep.domain.models.Leader;
-import com.nxtep.persistence.jpa.entities.LeaderEntity;
+import com.nxtep.infrastructure.jpa.entities.LeaderEntity;
 
 import org.springframework.data.domain.Page;
 

@@ -1,4 +1,4 @@
-package com.nxtep.persistence.jpa.mappers;
+package com.nxtep.infrastructure.jpa.mappers;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

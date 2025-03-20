@@ -1,4 +1,4 @@
-package com.nxtep.persistence.jpa.entities;
+package com.nxtep.infrastructure.jpa.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

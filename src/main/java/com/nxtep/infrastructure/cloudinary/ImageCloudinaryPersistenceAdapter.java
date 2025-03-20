@@ -1,4 +1,4 @@
-package com.nxtep.persistence.cloudinary;
+package com.nxtep.infrastructure.cloudinary;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;

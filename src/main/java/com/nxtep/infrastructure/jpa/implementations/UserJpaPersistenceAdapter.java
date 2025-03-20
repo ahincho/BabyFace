@@ -1,11 +1,11 @@
-package com.nxtep.persistence.jpa.implementations;
+package com.nxtep.infrastructure.jpa.implementations;
 
 import com.nxtep.domain.models.PageResult;
 import com.nxtep.domain.models.User;
 import com.nxtep.domain.repositories.UserPersistencePort;
-import com.nxtep.persistence.jpa.entities.UserEntity;
-import com.nxtep.persistence.jpa.mappers.UserJpaMapper;
-import com.nxtep.persistence.jpa.repositories.UserJpaRepository;
+import com.nxtep.infrastructure.jpa.entities.UserEntity;
+import com.nxtep.infrastructure.jpa.mappers.UserJpaMapper;
+import com.nxtep.infrastructure.jpa.repositories.UserJpaRepository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

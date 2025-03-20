@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LeaderResponse {
+    private Integer id;
+    private Integer rank;
     private String name;
     private Integer points;
 }

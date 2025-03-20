@@ -1,9 +1,9 @@
-package com.nxtep.persistence.jpa.mappers;
+package com.nxtep.infrastructure.jpa.mappers;
 
 import com.nxtep.domain.models.Game;
 import com.nxtep.domain.models.User;
-import com.nxtep.persistence.jpa.entities.GameEntity;
-import com.nxtep.persistence.jpa.entities.UserEntity;
+import com.nxtep.infrastructure.jpa.entities.GameEntity;
+import com.nxtep.infrastructure.jpa.entities.UserEntity;
 
 import java.time.LocalDateTime;
 

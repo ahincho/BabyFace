@@ -1,6 +1,6 @@
-package com.nxtep.persistence.jpa.repositories;
+package com.nxtep.infrastructure.jpa.repositories;
 
-import com.nxtep.persistence.jpa.entities.LeaderEntity;
+import com.nxtep.infrastructure.jpa.entities.LeaderEntity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

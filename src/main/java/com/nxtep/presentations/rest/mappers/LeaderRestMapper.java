@@ -9,6 +9,8 @@ public class LeaderRestMapper {
     private LeaderRestMapper() {}
     public static LeaderResponse domainToResponse(Leader leader) {
         return LeaderResponse.builder()
+            .id(leader.getId())
+            .rank(leader.getRank())
             .name(leader.getName())
             .points(leader.getHits() * GameRestMapper.POINTS_PER_HIT)
             .build();

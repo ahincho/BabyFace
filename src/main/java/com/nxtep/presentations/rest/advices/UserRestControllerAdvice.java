@@ -2,6 +2,7 @@ package com.nxtep.presentations.rest.advices;
 
 import com.nxtep.domain.exceptions.UserDuplicateException;
 import com.nxtep.domain.exceptions.UserNotFoundException;
+import com.nxtep.domain.exceptions.UserValidationException;
 import com.nxtep.presentations.rest.dtos.ExceptionResponse;
 import com.nxtep.presentations.rest.utils.ExceptionResponseFactory;
 
@@ -31,5 +32,12 @@ public class UserRestControllerAdvice {
         HttpServletRequest httpServletRequest
     ) {
         return exceptionResponseFactory.createErrorResponse(HttpStatus.NOT_FOUND, httpServletRequest, userNotFoundException.getMessage());
+    }
+    @ExceptionHandler(UserValidationException.class)
+    public ResponseEntity<ExceptionResponse> handleUserValidationException(
+        UserValidationException userValidationException,
+        HttpServletRequest httpServletRequest
+    ) {
+        return exceptionResponseFactory.createErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, httpServletRequest, userValidationException.getMessage());
     }
 }

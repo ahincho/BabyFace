@@ -18,6 +18,7 @@ public class UserRestMapper {
             .username(user.getUsername())
             .phone(user.getPhone())
             .photo(user.getPhoto())
+            .avatar(user.getAvatar())
             .createdAt(user.getCreatedAt())
             .updatedAt(user.getUpdatedAt())
             .build();

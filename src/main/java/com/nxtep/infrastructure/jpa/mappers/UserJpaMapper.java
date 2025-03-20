@@ -1,7 +1,7 @@
-package com.nxtep.persistence.jpa.mappers;
+package com.nxtep.infrastructure.jpa.mappers;
 
 import com.nxtep.domain.models.User;
-import com.nxtep.persistence.jpa.entities.UserEntity;
+import com.nxtep.infrastructure.jpa.entities.UserEntity;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +13,7 @@ public class UserJpaMapper {
             .username(user.getUsername())
             .phone(user.getPhone())
             .photo(user.getPhoto())
+            .avatar(user.getAvatar() == null ? null : user.getAvatar())
             .createdAt(user.getCreatedAt() == null ? LocalDateTime.now() : user.getCreatedAt())
             .updatedAt(user.getUpdatedAt() == null ? LocalDateTime.now() : user.getUpdatedAt())
             .build();
@@ -23,6 +24,7 @@ public class UserJpaMapper {
             .username(userEntity.getUsername())
             .phone(userEntity.getPhone())
             .photo(userEntity.getPhoto())
+            .avatar(userEntity.getAvatar())
             .createdAt(userEntity.getCreatedAt())
             .updatedAt(userEntity.getUpdatedAt())
             .build();
