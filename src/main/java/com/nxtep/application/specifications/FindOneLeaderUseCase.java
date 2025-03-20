@@ -1,4 +1,4 @@
-package com.nxtep.services.specifications;
+package com.nxtep.application.specifications;
 
 import com.nxtep.domain.exceptions.LeaderNotFoundException;
 import com.nxtep.domain.models.Leader;

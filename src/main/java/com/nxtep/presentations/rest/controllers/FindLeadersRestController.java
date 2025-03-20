@@ -6,7 +6,7 @@ import com.nxtep.presentations.rest.dtos.LeaderResponse;
 import com.nxtep.presentations.rest.dtos.PageRequest;
 import com.nxtep.presentations.rest.dtos.PageResponse;
 import com.nxtep.presentations.rest.mappers.LeaderRestMapper;
-import com.nxtep.services.specifications.FindLeadersUseCase;
+import com.nxtep.application.specifications.FindLeadersUseCase;
 
 import jakarta.validation.Valid;
 

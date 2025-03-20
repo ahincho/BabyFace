@@ -4,7 +4,7 @@ import com.nxtep.domain.exceptions.UserNotFoundException;
 import com.nxtep.domain.models.User;
 import com.nxtep.presentations.rest.dtos.UserResponse;
 import com.nxtep.presentations.rest.mappers.UserRestMapper;
-import com.nxtep.services.specifications.FindOneUserUseCase;
+import com.nxtep.application.specifications.FindOneUserUseCase;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

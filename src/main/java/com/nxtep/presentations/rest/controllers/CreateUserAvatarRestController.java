@@ -5,7 +5,7 @@ import com.nxtep.domain.exceptions.UserValidationException;
 import com.nxtep.domain.models.User;
 import com.nxtep.presentations.rest.dtos.UserResponse;
 import com.nxtep.presentations.rest.mappers.UserRestMapper;
-import com.nxtep.services.specifications.CreateOneUserAvatarUseCase;
+import com.nxtep.application.specifications.CreateOneUserAvatarUseCase;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

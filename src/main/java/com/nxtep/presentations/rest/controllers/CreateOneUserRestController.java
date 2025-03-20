@@ -6,7 +6,7 @@ import com.nxtep.presentations.rest.dtos.UserCreateRequest;
 import com.nxtep.presentations.rest.dtos.UserResponse;
 import com.nxtep.presentations.rest.mappers.ImageRestMapper;
 import com.nxtep.presentations.rest.mappers.UserRestMapper;
-import com.nxtep.services.specifications.CreateOneUserUseCase;
+import com.nxtep.application.specifications.CreateOneUserUseCase;
 
 import jakarta.validation.Valid;
 

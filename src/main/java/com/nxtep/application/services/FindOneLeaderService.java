@@ -1,9 +1,9 @@
-package com.nxtep.services.implementations;
+package com.nxtep.application.services;
 
 import com.nxtep.domain.exceptions.LeaderNotFoundException;
 import com.nxtep.domain.models.Leader;
 import com.nxtep.domain.repositories.LeaderPersistencePort;
-import com.nxtep.services.specifications.FindOneLeaderUseCase;
+import com.nxtep.application.specifications.FindOneLeaderUseCase;
 
 import org.springframework.stereotype.Service;
 

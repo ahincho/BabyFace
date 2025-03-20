@@ -1,4 +1,4 @@
-package com.nxtep.services.specifications;
+package com.nxtep.application.specifications;
 
 import com.nxtep.domain.models.PageResult;
 import com.nxtep.domain.models.Leader;

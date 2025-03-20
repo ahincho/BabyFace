@@ -4,7 +4,7 @@ import com.nxtep.domain.exceptions.LeaderNotFoundException;
 import com.nxtep.domain.models.Leader;
 import com.nxtep.presentations.rest.dtos.LeaderResponse;
 import com.nxtep.presentations.rest.mappers.LeaderRestMapper;
-import com.nxtep.services.specifications.FindOneLeaderUseCase;
+import com.nxtep.application.specifications.FindOneLeaderUseCase;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

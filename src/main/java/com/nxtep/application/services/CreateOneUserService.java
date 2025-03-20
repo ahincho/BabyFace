@@ -1,10 +1,10 @@
-package com.nxtep.services.implementations;
+package com.nxtep.application.services;
 
 import com.nxtep.domain.exceptions.UserDuplicateException;
 import com.nxtep.domain.models.User;
 import com.nxtep.domain.repositories.ImagePersistencePort;
 import com.nxtep.domain.repositories.UserPersistencePort;
-import com.nxtep.services.specifications.CreateOneUserUseCase;
+import com.nxtep.application.specifications.CreateOneUserUseCase;
 
 import org.springframework.stereotype.Service;
 

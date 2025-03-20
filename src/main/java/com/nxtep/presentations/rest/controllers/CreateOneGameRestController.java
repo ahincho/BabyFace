@@ -5,7 +5,7 @@ import com.nxtep.domain.models.Game;
 import com.nxtep.presentations.rest.dtos.GameCreateRequest;
 import com.nxtep.presentations.rest.dtos.GameResponse;
 import com.nxtep.presentations.rest.mappers.GameRestMapper;
-import com.nxtep.services.specifications.CreateOneGameUseCase;
+import com.nxtep.application.specifications.CreateOneGameUseCase;
 
 import jakarta.validation.Valid;
 

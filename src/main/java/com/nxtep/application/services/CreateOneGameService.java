@@ -1,10 +1,10 @@
-package com.nxtep.services.implementations;
+package com.nxtep.application.services;
 
 import com.nxtep.domain.exceptions.UserNotFoundException;
 import com.nxtep.domain.models.Game;
 import com.nxtep.domain.repositories.GamePersistencePort;
 import com.nxtep.domain.repositories.UserPersistencePort;
-import com.nxtep.services.specifications.CreateOneGameUseCase;
+import com.nxtep.application.specifications.CreateOneGameUseCase;
 
 import org.springframework.stereotype.Service;
 
