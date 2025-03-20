@@ -17,6 +17,8 @@ import lombok.NoArgsConstructor;
 @Entity(name = "leader")
 public class LeaderEntity {
     @Id
+    private Integer id;
+    private Integer rank;
     private String name;
     private Integer hits;
 }

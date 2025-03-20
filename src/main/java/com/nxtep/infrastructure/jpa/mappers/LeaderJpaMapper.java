@@ -10,6 +10,8 @@ public class LeaderJpaMapper {
     private LeaderJpaMapper() {}
     public static Leader entityToDomain(LeaderEntity leaderEntity) {
         return Leader.builder()
+            .id(leaderEntity.getId())
+            .rank(leaderEntity.getRank())
             .name(leaderEntity.getName())
             .hits(leaderEntity.getHits())
             .build();

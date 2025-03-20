@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class LeaderJpaPersistenceAdapter implements LeaderPersistencePort {
     private final LeaderJpaRepository leaderJpaRepository;
@@ -21,7 +23,11 @@ public class LeaderJpaPersistenceAdapter implements LeaderPersistencePort {
     @Override
     public PageResult<Leader> findLeaders(Integer page, Integer size) {
         Pageable pageRequest = CommonJpaMapper.domainPageToEntityPage(page, size);
-        Page<LeaderEntity> leaderEntityPage = leaderJpaRepository.findAll(pageRequest);
+        Page<LeaderEntity> leaderEntityPage = this.leaderJpaRepository.findAll(pageRequest);
         return LeaderJpaMapper.entityPageToDomainPage(leaderEntityPage);
+    }
+    @Override
+    public Optional<Leader> findLeaderById(Integer leaderId) {
+        return this.leaderJpaRepository.findById(leaderId).map(LeaderJpaMapper::entityToDomain);
     }
 }
