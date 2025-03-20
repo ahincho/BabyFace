@@ -4,6 +4,7 @@ import com.nxtep.application.specifications.CreateOneUserPhotoUseCase;
 import com.nxtep.domain.exceptions.ImageConversionException;
 import com.nxtep.domain.exceptions.ImageProcessingException;
 import com.nxtep.domain.exceptions.UserNotFoundException;
+import com.nxtep.domain.exceptions.UserValidationException;
 import com.nxtep.domain.models.User;
 import com.nxtep.presentations.rest.dtos.UserResponse;
 import com.nxtep.presentations.rest.mappers.ImageRestMapper;
@@ -37,7 +38,7 @@ public class CreateUserPhotoRestController {
     public ResponseEntity<UserResponse> createOneUserPhoto(
         @PathVariable Integer userId,
         @RequestPart MultipartFile photo
-    ) throws ImageConversionException, UserNotFoundException, ImageProcessingException {
+    ) throws ImageConversionException, UserNotFoundException, UserValidationException, ImageProcessingException {
         if (photo == null || photo.isEmpty()) {
             throw new ImageConversionException("La fotografía no debe estar vacía");
         }

@@ -13,6 +13,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
@@ -64,6 +65,12 @@ public class GlobalRestControllerAdvice {
         HttpServletRequest httpServletRequest
     ) {
         return this.exceptionResponseFactory.createErrorResponse(HttpStatus.NOT_ACCEPTABLE, httpServletRequest, multipartException.getMessage());
+    }
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ExceptionResponse> handleMaxUploadSizeExceededException(
+        HttpServletRequest httpServletRequest
+    ) {
+        return this.exceptionResponseFactory.createErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, httpServletRequest, "Se excedió el tamaño máximo permitido para la subida de archivos");
     }
     protected String getExpectedTypeMessage(Class<?> requiredType) {
         return switch (requiredType != null ? requiredType.getSimpleName() : "desconocido") {
