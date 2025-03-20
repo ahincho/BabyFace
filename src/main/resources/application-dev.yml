@@ -18,8 +18,11 @@ spring:
     open-in-view: false
   security:
     user:
-      name: ${SECURITY_USERNAME:administrator}
-      password: ${SECURITY_PASSWORD:administrator}
+      name: ${SECURITY_USERNAME}
+      password: ${SECURITY_PASSWORD}
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
 logging:
   level:
     org.hibernate.orm.connections.pooling: WARN
@@ -30,8 +33,5 @@ cloudinary:
   api:
     key: ${CLOUDINARY_API_KEY}
     secret: ${CLOUDINARY_API_SECRET}
-openai:
-  url: ${OPENAI_URL:}
-  key: ${OPENAI_KEY}
 server:
   port: ${SERVER_PORT:8080}
