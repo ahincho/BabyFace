@@ -19,7 +19,7 @@ public class FindOneLeaderService implements FindOneLeaderUseCase {
     public Leader execute(Integer leaderId) throws LeaderNotFoundException {
         Optional<Leader> optionalLeader = this.leaderPersistencePort.findLeaderById(leaderId);
         if (optionalLeader.isEmpty()) {
-            throw new LeaderNotFoundException(String.format("Leader with id '%s' not found", leaderId));
+            throw new LeaderNotFoundException(String.format("No existe un participante con identificador '%s'", leaderId));
         }
         return optionalLeader.get();
     }

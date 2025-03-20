@@ -22,4 +22,8 @@ public class GameJpaPersistenceAdapter implements GamePersistencePort {
         GameEntity gameEntitySaved = this.gameJpaRepository.save(gameEntity);
         return GameJpaMapper.entityToEntity(gameEntitySaved);
     }
+    @Override
+    public boolean existsOneGameByUserId(Integer userId) {
+        return this.gameJpaRepository.existsByUserId(userId);
+    }
 }

@@ -27,7 +27,7 @@ public class GlobalRestControllerAdvice {
         MethodArgumentTypeMismatchException methodArgumentTypeMismatchException,
         HttpServletRequest httpServletRequest
     ) {
-        String message = String.format("Invalid value for parameter '%s'. Expected %s.",
+        String message = String.format("Valor inválido para el parámetro '%s'. Se espera %s.",
             methodArgumentTypeMismatchException.getName(), getExpectedTypeMessage(methodArgumentTypeMismatchException.getRequiredType()));
         return this.exceptionResponseFactory.createErrorResponse(HttpStatus.BAD_REQUEST, httpServletRequest, message);
     }
@@ -66,12 +66,12 @@ public class GlobalRestControllerAdvice {
         return this.exceptionResponseFactory.createErrorResponse(HttpStatus.NOT_ACCEPTABLE, httpServletRequest, multipartException.getMessage());
     }
     protected String getExpectedTypeMessage(Class<?> requiredType) {
-        return switch (requiredType != null ? requiredType.getSimpleName() : "Unknown") {
-            case "Integer" -> "an integer";
-            case "Double" -> "a decimal number";
-            case "Boolean" -> "a boolean (true/false)";
-            case "String" -> "a string";
-            default -> "a value of type " + (requiredType != null ? requiredType.getSimpleName() : "unknown");
+        return switch (requiredType != null ? requiredType.getSimpleName() : "desconocido") {
+            case "Integer" -> "un número entero";
+            case "Double" -> "un número decimal";
+            case "Boolean" -> "un valor booleano (verdadero/falso)";
+            case "String" -> "una cadena de caracteres";
+            default -> "un objeto de tipo " + (requiredType != null ? requiredType.getSimpleName() : "desconocido");
         };
     }
 }

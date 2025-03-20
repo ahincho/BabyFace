@@ -1,5 +1,7 @@
 package com.nxtep.presentations.rest.dtos;
 
+import com.nxtep.presentations.rest.annotations.MultipleOf;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -17,5 +19,6 @@ public class GameCreateRequest {
     private Integer userId;
     @NotNull
     @Positive
-    private Integer hits;
+    @MultipleOf(50)
+    private Integer points;
 }

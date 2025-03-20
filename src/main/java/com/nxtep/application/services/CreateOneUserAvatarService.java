@@ -1,5 +1,6 @@
 package com.nxtep.application.services;
 
+import com.nxtep.domain.exceptions.ImageProcessingException;
 import com.nxtep.domain.exceptions.UserNotFoundException;
 import com.nxtep.domain.exceptions.UserValidationException;
 import com.nxtep.domain.models.User;
@@ -28,17 +29,17 @@ public class CreateOneUserAvatarService implements CreateOneUserAvatarUseCase {
         this.imagePersistencePort = imagePersistencePort;
     }
     @Override
-    public User execute(Integer userId) throws UserNotFoundException, UserValidationException {
+    public User execute(Integer userId) throws UserNotFoundException, UserValidationException, ImageProcessingException {
         Optional<User> optionalUser = this.userPersistencePort.findOneUser(userId);
         if (optionalUser.isEmpty()) {
-            throw new UserNotFoundException(String.format("User with id '%d' not found", userId));
+            throw new UserNotFoundException(String.format("No existe un usuario con identificador '%s'", userId));
         }
         User user = optionalUser.get();
-        if (user.getPhoto().isEmpty()) {
-            throw new UserValidationException(String.format("The user with id '%d' does not have an associated photo", userId));
+        if (user.getPhoto() == null || user.getPhoto().isEmpty()) {
+            throw new UserValidationException(String.format("El usuario con identificador '%d' no tiene una foto de perfil asociada previamente", userId));
         }
-        if (user.getAvatar() != null) {
-            throw new UserValidationException(String.format("The user with id '%d' has an associated avatar", userId));
+        if (user.getAvatar() != null && !user.getAvatar().isEmpty()) {
+            throw new UserValidationException(String.format("El usuario con identificador '%d' ya posee un avatar asociado previamente", userId));
         }
         File avatar = this.imageGeneratorPort.createImageFromAnotherImage(user.getPhoto());
         String avatarUrl = this.imagePersistencePort.createOneImage("avatars", avatar);

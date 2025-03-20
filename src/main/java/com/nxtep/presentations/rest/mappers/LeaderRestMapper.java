@@ -12,7 +12,7 @@ public class LeaderRestMapper {
             .id(leader.getId())
             .rank(leader.getRank())
             .name(leader.getName())
-            .points(leader.getPoints() * GameRestMapper.POINTS_PER_HIT)
+            .points(leader.getPoints())
             .build();
     }
     public static PageResponse<LeaderResponse> domainToPageResponse(PageResult<Leader> leaderPageResult) {

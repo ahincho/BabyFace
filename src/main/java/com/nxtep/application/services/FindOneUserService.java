@@ -19,7 +19,7 @@ public class FindOneUserService implements FindOneUserUseCase {
     public User execute(Integer userId) throws UserNotFoundException {
         Optional<User> user = this.userPersistencePort.findOneUser(userId);
         if (user.isEmpty()) {
-            throw new UserNotFoundException(String.format("User with id '%s' not found", userId));
+            throw new UserNotFoundException(String.format("No existe un usuario con identificador '%s'", userId));
         }
         return user.get();
     }

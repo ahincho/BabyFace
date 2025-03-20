@@ -1,5 +1,6 @@
 package com.nxtep.presentations.rest.controllers;
 
+import com.nxtep.domain.exceptions.ImageProcessingException;
 import com.nxtep.domain.exceptions.UserNotFoundException;
 import com.nxtep.domain.exceptions.UserValidationException;
 import com.nxtep.domain.models.User;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -24,9 +28,10 @@ public class CreateUserAvatarRestController {
     @PostMapping(value = "/{userId}/avatars", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserResponse> createUserAvatar(
         @PathVariable Integer userId
-    ) throws UserNotFoundException, UserValidationException {
+    ) throws UserNotFoundException, UserValidationException, ImageProcessingException {
         User updatedUser = this.createOneUserAvatarUseCase.execute(userId);
         UserResponse userResponse = UserRestMapper.domainToResponse(updatedUser);
-        return ResponseEntity.ok(userResponse);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{userId}").buildAndExpand(userId).toUri();
+        return ResponseEntity.created(uri).body(userResponse);
     }
 }

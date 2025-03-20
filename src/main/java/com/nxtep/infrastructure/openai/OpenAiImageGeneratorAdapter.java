@@ -1,5 +1,6 @@
 package com.nxtep.infrastructure.openai;
 
+import com.nxtep.domain.exceptions.ImageProcessingException;
 import com.nxtep.domain.services.ImageGeneratorPort;
 
 import org.springframework.ai.image.ImagePrompt;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URL;
 
 @Component
@@ -21,19 +23,19 @@ public class OpenAiImageGeneratorAdapter implements ImageGeneratorPort {
         this.openAiImageModel = openAiImageModel;
     }
     @Override
-    public File createImageFromAnotherImage(String imageUrl) {
+    public File createImageFromAnotherImage(String imageUrl) throws ImageProcessingException {
         String promptText = """
-            Transform the image at the provided URL into a highly detailed Pixar-style 3D animated character. 
-            The illustration must feature only the **single** person from the original image, accurately replicating their clothing, 
-            facial expression, and gestures with a smooth, rounded, and expressive look. 
-            The character should have exaggerated yet natural facial features, soft lighting, and warm, vibrant colors 
-            to match the iconic Pixar aesthetic. 
-            Ensure the background and environment include **playful elements such as colorful candies, lollipops, chocolates, 
-            and other sweet treats**, arranged in a whimsical and magical way. The atmosphere should feel warm, 
-            cheerful, and inviting, like a scene from an animated fantasy world. 
-            The person should remain the focal point, with careful attention to detail in **fabric texture, shading, and lighting**, 
+            Transform the image at the provided URL into a highly detailed Pixar-style 3D animated character.
+            The illustration must feature only the **single** person from the original image, accurately replicating their clothing
+            facial expression, and gestures with a smooth, rounded, and expressive look.
+            The character should have exaggerated yet natural facial features, soft lighting, and warm, vibrant colors
+            to match the iconic Pixar aesthetic.
+            Ensure the background and environment include **playful elements such as colorful candies, lollipops, chocolates,
+            and other sweet treats**, arranged in a whimsical and magical way. The atmosphere should feel warm,
+            cheerful, and inviting, like a scene from an animated fantasy world.
+            The person should remain the focal point, with careful attention to detail in **fabric texture, shading, and lighting**,
             enhancing the charm of a lovable and expressive young child.
-            You must use the image allocated at this URL: """ + imageUrl;
+            You must use and analyze the image allocated at this URL:""" + imageUrl;
         OpenAiImageOptions openAiImageOptions = OpenAiImageOptions.builder()
             .withQuality("standard")
             .withN(1)
@@ -45,9 +47,10 @@ public class OpenAiImageGeneratorAdapter implements ImageGeneratorPort {
         String generatedImageUrl = imageResponse.getResult().getOutput().getUrl();
         return downloadImage(generatedImageUrl);
     }
-    private File downloadImage(String imageUrl) {
+    private File downloadImage(String imageUrl) throws ImageProcessingException {
         try {
-            URL url = new URL(imageUrl);
+            URI uri = URI.create(imageUrl);
+            URL url = uri.toURL();
             File tempFile = File.createTempFile("generated-image", ".png");
             try (InputStream in = url.openStream();
                  FileOutputStream out = new FileOutputStream(tempFile)) {
@@ -59,7 +62,7 @@ public class OpenAiImageGeneratorAdapter implements ImageGeneratorPort {
             }
             return tempFile;
         } catch (IOException e) {
-            throw new RuntimeException("Error downloading the image from: " + imageUrl, e);
+            throw new ImageProcessingException("Error al intentar descargar la imagen en OpenAI: " + imageUrl);
         }
     }
 }

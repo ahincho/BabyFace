@@ -1,6 +1,7 @@
 package com.nxtep.application.services;
 
 import com.nxtep.application.specifications.CreateOneUserPhotoUseCase;
+import com.nxtep.domain.exceptions.ImageProcessingException;
 import com.nxtep.domain.exceptions.UserNotFoundException;
 import com.nxtep.domain.models.User;
 import com.nxtep.domain.repositories.ImagePersistencePort;
@@ -20,10 +21,10 @@ public class CreateOneUserPhotoService implements CreateOneUserPhotoUseCase {
         this.imagePersistencePort = imagePersistencePort;
     }
     @Override
-    public User execute(Integer userId, File photo) throws UserNotFoundException {
+    public User execute(Integer userId, File photo) throws UserNotFoundException, ImageProcessingException {
         Optional<User> optionalUser = this.userPersistencePort.findOneUser(userId);
         if (optionalUser.isEmpty()) {
-            throw new UserNotFoundException(String.format("User with id '%d' does not exist", userId));
+            throw new UserNotFoundException(String.format("No existe un usuario con identificador '%s'", userId));
         }
         String photoUrl = this.imagePersistencePort.createOneImage("photos", photo);
         User user = optionalUser.get();

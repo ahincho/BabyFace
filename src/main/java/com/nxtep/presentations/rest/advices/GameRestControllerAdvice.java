@@ -1,5 +1,6 @@
 package com.nxtep.presentations.rest.advices;
 
+import com.nxtep.domain.exceptions.GameDuplicateException;
 import com.nxtep.domain.exceptions.GameNotFoundException;
 import com.nxtep.presentations.rest.dtos.ExceptionResponse;
 import com.nxtep.presentations.rest.utils.ExceptionResponseFactory;
@@ -16,6 +17,13 @@ public class GameRestControllerAdvice {
     private final ExceptionResponseFactory exceptionResponseFactory;
     public GameRestControllerAdvice(ExceptionResponseFactory exceptionResponseFactory) {
         this.exceptionResponseFactory = exceptionResponseFactory;
+    }
+    @ExceptionHandler(GameDuplicateException.class)
+    public ResponseEntity<ExceptionResponse> handleGameDuplicateException(
+        GameDuplicateException gameDuplicateException,
+        HttpServletRequest httpServletRequest
+    ) {
+        return this.exceptionResponseFactory.createErrorResponse(HttpStatus.CONFLICT, httpServletRequest, gameDuplicateException.getMessage());
     }
     @ExceptionHandler(GameNotFoundException.class)
     public ResponseEntity<ExceptionResponse> handleGameNotFoundException(

@@ -1,5 +1,6 @@
 package com.nxtep.presentations.rest.controllers;
 
+import com.nxtep.domain.exceptions.GameDuplicateException;
 import com.nxtep.domain.exceptions.UserNotFoundException;
 import com.nxtep.domain.models.Game;
 import com.nxtep.presentations.rest.dtos.GameCreateRequest;
@@ -27,7 +28,9 @@ public class CreateOneGameRestController {
         this.createOneGameUseCase = createOneGameUseCase;
     }
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GameResponse> createOneGame(@RequestBody @Valid GameCreateRequest gameCreateRequest) throws UserNotFoundException {
+    public ResponseEntity<GameResponse> createOneGame(
+        @RequestBody @Valid GameCreateRequest gameCreateRequest
+    ) throws UserNotFoundException, GameDuplicateException {
         Game game = GameRestMapper.createRequestToDomain(gameCreateRequest);
         Game savedGame = this.createOneGameUseCase.execute(game);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{gameId}").buildAndExpand(savedGame.getId()).toUri();
