@@ -3,49 +3,81 @@ package com.nxtep.infrastructure.openai;
 import com.nxtep.domain.exceptions.ImageProcessingException;
 import com.nxtep.domain.services.ImageGeneratorPort;
 
+import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.image.ImagePrompt;
 import org.springframework.ai.image.ImageResponse;
+import org.springframework.ai.model.Media;
+import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiImageModel;
 import org.springframework.ai.openai.OpenAiImageOptions;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MimeTypeUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 @Component
 public class OpenAiImageGeneratorAdapter implements ImageGeneratorPort {
+    private final OpenAiChatModel openAiChatModel;
     private final OpenAiImageModel openAiImageModel;
-    public OpenAiImageGeneratorAdapter(OpenAiImageModel openAiImageModel) {
+    public OpenAiImageGeneratorAdapter(OpenAiChatModel openAiChatModel, OpenAiImageModel openAiImageModel) {
+        this.openAiChatModel = openAiChatModel;
         this.openAiImageModel = openAiImageModel;
     }
     @Override
     public File createImageFromAnotherImage(String imageUrl) throws ImageProcessingException {
-        String promptText = """
-            Transform the image at the provided URL into a highly detailed Pixar-style 3D animated character.
-            The illustration must feature only the **single** person from the original image, accurately replicating their clothing
-            facial expression, and gestures with a smooth, rounded, and expressive look.
-            The character should have exaggerated yet natural facial features, soft lighting, and warm, vibrant colors
-            to match the iconic Pixar aesthetic.
-            Ensure the background and environment include **playful elements such as colorful candies, lollipops, chocolates,
-            and other sweet treats**, arranged in a whimsical and magical way. The atmosphere should feel warm,
-            cheerful, and inviting, like a scene from an animated fantasy world.
-            The person should remain the focal point, with careful attention to detail in **fabric texture, shading, and lighting**,
-            enhancing the charm of a lovable and expressive young child.
-            You must use and analyze the image allocated at this URL:""" + imageUrl;
-        OpenAiImageOptions openAiImageOptions = OpenAiImageOptions.builder()
-            .withQuality("standard")
-            .withN(1)
-            .withHeight(1024)
-            .withWidth(1024)
-            .build();
-        ImagePrompt prompt = new ImagePrompt(promptText, openAiImageOptions);
-        ImageResponse imageResponse = this.openAiImageModel.call(prompt);
-        String generatedImageUrl = imageResponse.getResult().getOutput().getUrl();
-        return downloadImage(generatedImageUrl);
+        try {
+            URI imageUri = new URI(imageUrl);
+            URL imageUrlObj = imageUri.toURL();
+            UserMessage userMessage = new UserMessage(
+                "Describe the person in the image, including gender, age, hairstyle, clothing, and accessories.",
+                new Media(MimeTypeUtils.IMAGE_JPEG, imageUrlObj)
+            );
+            ChatResponse chatResponse = this.openAiChatModel.call(new Prompt(userMessage));
+            String description = chatResponse.getResult().getOutput().getText();
+            System.out.println("Description: " + description);
+            String promptText = """
+            Transform the provided image into a high-quality Pixar-style 3D animated character, depicting a **younger (infant or baby) version** of the person. Follow these guidelines:
+            1. **Person's Characteristics**:
+               - Use the following description as reference: %s
+               - Maintain recognizable features but adapt them to a childlike, baby version.
+               - Ensure a smooth, rounded, and expressive appearance, with exaggerated but natural proportions.
+            2. **Clothing and Expression**:
+               - Preserve the **clothing style, facial expression, and gestures** as closely as possible.
+               - Adjust the outfit’s fit and proportions to match the character's younger appearance.
+               - Retain accessories where appropriate, adapting them for a baby-like version.
+            3. **Pixar Aesthetic**:
+               - Apply **soft lighting and warm, vibrant colors** for a lively and appealing look.
+               - Use detailed **fabric textures, shading, and lighting** to enhance realism.
+            4. **Magical Candy-Themed Background**:
+               - Create a whimsical world filled with **colorful candies, lollipops, chocolates, and other sweet treats**.
+               - The scene should feel cheerful, inviting, and reminiscent of Pixar’s fantasy settings.
+            5. **Final Adjustments**:
+               - Ensure the person remains the **central focus** with a **lovable and expressive childlike charm**.
+               - Pay close attention to details that make the baby version instantly recognizable.
+        """.formatted(description);
+            System.out.println("Prompt: " + promptText);
+            OpenAiImageOptions openAiImageOptions = OpenAiImageOptions.builder()
+                .withQuality("standard")
+                .withN(1)
+                .withHeight(1024)
+                .withWidth(1024)
+                .build();
+            ImagePrompt imagePrompt = new ImagePrompt(promptText, openAiImageOptions);
+            ImageResponse imageResponse = this.openAiImageModel.call(imagePrompt);
+            String generatedImageUrl = imageResponse.getResult().getOutput().getUrl();
+            return downloadImage(generatedImageUrl);
+        } catch (URISyntaxException | MalformedURLException e) {
+            throw new ImageProcessingException("Invalid image URL: " + imageUrl);
+        }
     }
     private File downloadImage(String imageUrl) throws ImageProcessingException {
         try {
