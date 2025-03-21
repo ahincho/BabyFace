@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CloudinaryConfiguration {
+    @Value("${cloudinary.environment}")
+    private String cloudinaryEnvironment;
     @Value("${cloudinary.name}")
     private String cloudinaryName;
     @Value("${cloudinary.api.key}")
@@ -18,9 +20,13 @@ public class CloudinaryConfiguration {
     @Bean
     public Cloudinary cloudinary() {
         return new Cloudinary(ObjectUtils.asMap(
-            "cloud_name", cloudinaryName,
-            "api_key", cloudinaryApiKey,
-            "api_secret", cloudinaryApiSecret
+            "cloud_name", this.cloudinaryName,
+            "api_key", this.cloudinaryApiKey,
+            "api_secret", this.cloudinaryApiSecret,
+            "secure", true
         ));
+    }
+    @Bean String cloudinaryEnvironment() {
+        return this.cloudinaryEnvironment;
     }
 }

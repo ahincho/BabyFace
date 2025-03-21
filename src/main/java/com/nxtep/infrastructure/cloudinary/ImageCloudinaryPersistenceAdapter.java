@@ -17,14 +17,16 @@ import java.util.Map;
 @Repository
 public class ImageCloudinaryPersistenceAdapter implements ImagePersistencePort {
     private final Cloudinary cloudinary;
-    public ImageCloudinaryPersistenceAdapter(Cloudinary cloudinary) {
+    private final String cloudinaryEnvironment;
+    public ImageCloudinaryPersistenceAdapter(Cloudinary cloudinary, String cloudinaryEnvironment) {
         this.cloudinary = cloudinary;
+        this.cloudinaryEnvironment = cloudinaryEnvironment;
     }
     @Override
     public String createOneImage(String folder, File file) throws ImageProcessingException {
         try {
             Map<String, Object> uploadOptions = new HashMap<>();
-            uploadOptions.put("folder", folder);
+            uploadOptions.put("folder", this.cloudinaryEnvironment + "/" + folder);
             Map<?,?> result = this.cloudinary.uploader().upload(file, uploadOptions);
             if (!Files.deleteIfExists(file.toPath())) {
                 throw new IOException("No se pudo remover el archivo temporal: " + file.getAbsolutePath());
@@ -37,7 +39,7 @@ public class ImageCloudinaryPersistenceAdapter implements ImagePersistencePort {
     @Override
     public void deleteOneImage(String folder, String image) throws ImageProcessingException {
         try {
-            String publicId = extractPublicId(folder, image);
+            String publicId = extractPublicId(this.cloudinaryEnvironment + "/" + folder, image);
             Map<?,?> result = cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
             if (!"ok".equals(result.get("result"))) {
                 throw new ImageProcessingException("Error al intentar eliminar el archivo en Cloudinary");
