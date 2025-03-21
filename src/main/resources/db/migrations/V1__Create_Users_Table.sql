@@ -1,8 +1,8 @@
 -- V1 - Create Users Table
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(64) NOT NULL UNIQUE,
-    phone VARCHAR(15) NOT NULL,
+    username VARCHAR(32) NOT NULL UNIQUE,
+    phone VARCHAR(9) NOT NULL,
     photo VARCHAR(256) NULL,
     avatar VARCHAR(256) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,

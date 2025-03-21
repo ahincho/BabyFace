@@ -2,4 +2,4 @@ spring:
   application:
     name: baby-face
   profiles:
-    active: ${SPRING_PROFILE:dev}
+    active: ${SPRING_PROFILE:local}

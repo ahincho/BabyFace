@@ -11,6 +11,8 @@ import com.nxtep.domain.repositories.UserPersistencePort;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Optional;
 
 @Service
@@ -28,11 +30,21 @@ public class CreateOneUserPhotoService implements CreateOneUserPhotoUseCase {
             throw new UserNotFoundException(String.format("No existe un usuario con identificador '%s'", userId));
         }
         if (optionalUser.get().getPhoto() != null && !optionalUser.get().getPhoto().isEmpty()) {
+            deleteTempFile(photo);
             throw new UserValidationException(String.format("El usuario con identificador '%s' ya posee una foto de perfil asociada", userId));
         }
         String photoUrl = this.imagePersistencePort.createOneImage("photos", photo);
         User user = optionalUser.get();
         user.setPhoto(photoUrl);
         return this.userPersistencePort.updateOneUser(user);
+    }
+    private void deleteTempFile(File file) throws ImageProcessingException {
+        if (file != null && file.exists()) {
+            try {
+                Files.delete(file.toPath());
+            } catch (IOException e) {
+                throw new ImageProcessingException("Error al eliminar el archivo temporal: " + file.getAbsolutePath());
+            }
+        }
     }
 }

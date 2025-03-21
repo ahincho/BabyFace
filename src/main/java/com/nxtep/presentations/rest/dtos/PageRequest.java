@@ -15,12 +15,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PageRequest {
-    @NotNull
-    @Min(0)
+    @NotNull(message = "La página no puede estar vacía")
+    @Min(value = 0, message = "La página debe ser un número entero mayor o igual a 0")
     private Integer page = 0;
-    @NotNull
-    @Positive
-    @Min(10)
-    @Max(25)
+    @NotNull(message = "El tamaño de página no puede estar vacío")
+    @Positive(message = "El tamaño de página debe ser un número entero positivo")
+    @Min(value = 10, message = "El tamaño de página debe ser al menos 10")
+    @Max(value = 25, message = "El tamaño de página no puede ser mayor a 25")
     private Integer size = 10;
 }

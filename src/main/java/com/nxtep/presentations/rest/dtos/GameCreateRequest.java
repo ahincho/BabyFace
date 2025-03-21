@@ -15,10 +15,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GameCreateRequest {
-    @NotNull
+    @NotNull(message = "El id del usuario no puede estar vacío")
+    @Positive(message = "El id del usuario debe ser un número entero positivo")
     private Integer userId;
-    @NotNull
-    @Positive
-    @MultipleOf(50)
+    @NotNull(message = "Los puntos no pueden estar vacíos")
+    @Positive(message = "Los puntos deben ser un número entero positivo")
+    @MultipleOf(value = 50, message = "Los puntos deben ser múltiplos de 50")
     private Integer points;
 }
