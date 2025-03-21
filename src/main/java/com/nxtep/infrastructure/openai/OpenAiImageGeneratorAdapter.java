@@ -19,9 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 @Component
@@ -43,9 +41,8 @@ public class OpenAiImageGeneratorAdapter implements ImageGeneratorPort {
             );
             ChatResponse chatResponse = this.openAiChatModel.call(new Prompt(userMessage));
             String description = chatResponse.getResult().getOutput().getText();
-            System.out.println("Description: " + description);
             String promptText = """
-            Transform the provided image into a high-quality Pixar-style 3D animated character, depicting a **younger (infant or baby) version** of the person. Follow these guidelines:
+            Transform the provided person description into a high-quality Pixar-style 3D animated character, depicting a **younger (infant or baby) version** of the person. Follow these guidelines:
             1. **Person's Characteristics**:
                - Use the following description as reference: %s
                - Maintain recognizable features but adapt them to a childlike, baby version.
@@ -64,7 +61,6 @@ public class OpenAiImageGeneratorAdapter implements ImageGeneratorPort {
                - Ensure the person remains the **central focus** with a **lovable and expressive childlike charm**.
                - Pay close attention to details that make the baby version instantly recognizable.
         """.formatted(description);
-            System.out.println("Prompt: " + promptText);
             OpenAiImageOptions openAiImageOptions = OpenAiImageOptions.builder()
                 .withQuality("standard")
                 .withN(1)
@@ -75,8 +71,8 @@ public class OpenAiImageGeneratorAdapter implements ImageGeneratorPort {
             ImageResponse imageResponse = this.openAiImageModel.call(imagePrompt);
             String generatedImageUrl = imageResponse.getResult().getOutput().getUrl();
             return downloadImage(generatedImageUrl);
-        } catch (URISyntaxException | MalformedURLException e) {
-            throw new ImageProcessingException("Invalid image URL: " + imageUrl);
+        } catch (Exception exception) {
+            throw new ImageProcessingException("Error al generar avatar utilizando los servicios de OpenAI");
         }
     }
     private File downloadImage(String imageUrl) throws ImageProcessingException {
@@ -94,7 +90,7 @@ public class OpenAiImageGeneratorAdapter implements ImageGeneratorPort {
             }
             return tempFile;
         } catch (IOException e) {
-            throw new ImageProcessingException("Error al intentar descargar la imagen en OpenAI: " + imageUrl);
+            throw new ImageProcessingException("Error al intentar descargar la imagen generada por OpenAI");
         }
     }
 }
