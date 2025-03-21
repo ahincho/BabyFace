@@ -27,6 +27,7 @@ public class CreateOneUserPhotoService implements CreateOneUserPhotoUseCase {
     public User execute(Integer userId, File photo) throws UserNotFoundException, ImageProcessingException, UserValidationException {
         Optional<User> optionalUser = this.userPersistencePort.findOneUser(userId);
         if (optionalUser.isEmpty()) {
+            deleteTempFile(photo);
             throw new UserNotFoundException(String.format("No existe un usuario con identificador '%s'", userId));
         }
         if (optionalUser.get().getPhoto() != null && !optionalUser.get().getPhoto().isEmpty()) {
