@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Leader {
     private Integer id;
+    private Integer rank;
     private String name;
     private Integer points;
-    private Integer rank;
 }

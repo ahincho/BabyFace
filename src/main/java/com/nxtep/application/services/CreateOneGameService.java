@@ -9,6 +9,9 @@ import com.nxtep.application.specifications.CreateOneGameUseCase;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Service
 public class CreateOneGameService implements CreateOneGameUseCase {
     private final UserPersistencePort userPersistencePort;
@@ -23,9 +26,10 @@ public class CreateOneGameService implements CreateOneGameUseCase {
         if (!existsUserById) {
             throw new UserNotFoundException(String.format("No existe un usuario con identificador '%s'", game.getUser().getId()));
         }
-        boolean existsOneGameByUserId = this.gamePersistencePort.existsOneGameByUserId(game.getUser().getId());
-        if (existsOneGameByUserId) {
-            throw new GameDuplicateException(String.format("Ya existe una partida registrada anteriormente para el usuario con identificador '%s'", game.getUser().getId()));
+        LocalDateTime startOfDay = LocalDate.now().atStartOfDay();
+        boolean alreadyPlayed = this.gamePersistencePort.existsOneGameByUserIdAndCreatedAtAfter(game.getUser().getId(), startOfDay);
+        if (alreadyPlayed) {
+            throw new GameDuplicateException(String.format("Ya existe una partida registrada anteriormente para el usuario con identificador '%s' el día de hoy", game.getUser().getId()));
         }
         return this.gamePersistencePort.createOneGame(game);
     }

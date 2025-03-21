@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.3</version>
+		<version>3.4.4</version>
 		<relativePath/>
 	</parent>
 	<groupId>com.nxtep</groupId>
@@ -15,7 +15,12 @@
 	<description>Baby Face Web Application</description>
 	<url/>
 	<licenses>
-		<license/>
+		<license>
+			<name>Business Source License 1.1</name>
+			<url>https://mariadb.com/bsl11/</url>
+			<distribution>repo</distribution>
+			<comments>The source code is visible but with restrictions on use and modification</comments>
+		</license>
 	</licenses>
 	<developers>
 		<developer>

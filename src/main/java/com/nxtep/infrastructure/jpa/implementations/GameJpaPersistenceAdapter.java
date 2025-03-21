@@ -9,6 +9,8 @@ import com.nxtep.infrastructure.jpa.repositories.GameJpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Repository
 public class GameJpaPersistenceAdapter implements GamePersistencePort {
     private final GameJpaRepository gameJpaRepository;
@@ -23,7 +25,7 @@ public class GameJpaPersistenceAdapter implements GamePersistencePort {
         return GameJpaMapper.entityToEntity(gameEntitySaved);
     }
     @Override
-    public boolean existsOneGameByUserId(Integer userId) {
-        return this.gameJpaRepository.existsByUserId(userId);
+    public boolean existsOneGameByUserIdAndCreatedAtAfter(Integer userId, LocalDateTime createdAt) {
+        return this.gameJpaRepository.existsByUserIdAndCreatedAtAfter(userId, createdAt);
     }
 }

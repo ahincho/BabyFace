@@ -5,5 +5,5 @@ import com.nxtep.domain.exceptions.ImageProcessingException;
 import java.io.File;
 
 public interface ImageGeneratorPort {
-    File createImageFromAnotherImage(String imageUrl) throws ImageProcessingException;
+    File createImageFromAnotherImage(String username, String imageUrl) throws ImageProcessingException;
 }

@@ -33,8 +33,8 @@ public class UserJpaPersistenceAdapter implements UserPersistencePort {
         return this.userJpaRepository.existsById(userId);
     }
     @Override
-    public boolean existsOneUserByUsername(String username) {
-        return this.userJpaRepository.existsByUsername(username);
+    public boolean existsOneUserByPhone(String phone) {
+        return this.userJpaRepository.existsByPhone(phone);
     }
     @Override
     @Transactional

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -17,7 +18,7 @@ public class User {
     private String phone;
     private String photo;
     private String avatar;
-    private Game game;
+    private List<Game> games;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

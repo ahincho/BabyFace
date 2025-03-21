@@ -3,6 +3,7 @@ package com.nxtep.infrastructure.openai;
 import com.nxtep.domain.exceptions.ImageProcessingException;
 import com.nxtep.domain.services.ImageGeneratorPort;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -22,6 +23,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 
+@Slf4j
 @Component
 public class OpenAiImageGeneratorAdapter implements ImageGeneratorPort {
     private final OpenAiChatModel openAiChatModel;
@@ -31,16 +33,17 @@ public class OpenAiImageGeneratorAdapter implements ImageGeneratorPort {
         this.openAiImageModel = openAiImageModel;
     }
     @Override
-    public File createImageFromAnotherImage(String imageUrl) throws ImageProcessingException {
+    public File createImageFromAnotherImage(String username, String imageUrl) throws ImageProcessingException {
         try {
             URI imageUri = new URI(imageUrl);
             URL imageUrlObj = imageUri.toURL();
             UserMessage userMessage = new UserMessage(
-                "Describe the person in the image, including gender, age, hairstyle, clothing, and accessories.",
+                "Analyze the image and provide a detailed description of the person. Focus primarily on determining their gender with high accuracy. Also, describe their hairstyle, clothing, and any visible accessories.",
                 new Media(MimeTypeUtils.IMAGE_JPEG, imageUrlObj)
             );
             ChatResponse chatResponse = this.openAiChatModel.call(new Prompt(userMessage));
             String description = chatResponse.getResult().getOutput().getText();
+            log.info("Description ({}): {}", username, description);
             String promptText = """
             Transform the provided person description into a high-quality Pixar-style 3D animated character, depicting a **younger (infant or baby) version** of the person. Follow these guidelines:
             1. **Person's Characteristics**:

@@ -1,7 +1,7 @@
 -- V2 - Create Games Table
 CREATE TABLE games (
     id BIGSERIAL PRIMARY KEY,
-    user_id INT NOT NULL UNIQUE,
+    user_id INT NOT NULL,
     points INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,

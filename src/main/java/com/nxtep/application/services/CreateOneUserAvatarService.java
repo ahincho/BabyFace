@@ -41,7 +41,7 @@ public class CreateOneUserAvatarService implements CreateOneUserAvatarUseCase {
         if (user.getAvatar() != null && !user.getAvatar().isEmpty()) {
             throw new UserValidationException(String.format("El usuario con identificador '%d' ya posee un avatar asociado previamente", userId));
         }
-        File avatar = this.imageGeneratorPort.createImageFromAnotherImage(user.getPhoto());
+        File avatar = this.imageGeneratorPort.createImageFromAnotherImage(user.getUsername(), user.getPhoto());
         String avatarUrl = this.imagePersistencePort.createOneImage("avatars", avatar);
         user.setAvatar(avatarUrl);
         return this.userPersistencePort.updateOneUser(user);

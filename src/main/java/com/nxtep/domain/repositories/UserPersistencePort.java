@@ -8,6 +8,6 @@ public interface UserPersistencePort {
     User createOneUser(User user);
     Optional<User> findOneUser(Integer userId);
     boolean existsOneUser(Integer userId);
-    boolean existsOneUserByUsername(String username);
+    boolean existsOneUserByPhone(String phone);
     User updateOneUser(User user);
 }
